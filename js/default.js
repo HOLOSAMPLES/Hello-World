@@ -25,8 +25,18 @@ function Init(){
  		document.body.appendChild( renderer.domElement );
   
        //add object to Scene
-      var graph = new THREE.Mesh(new THREE.SphereGeometry(40, 30, 100, 100), new THREE.MeshLambertMaterial({color:0xffffff}));
+      var graph = new THREE.Mesh(new THREE.SphereGeometry(5, 30, 10), new THREE.MeshLambertMaterial({color:0xffffff}));
 	  scene.add(graph);
+  
+        //add Light
+ 		var xl = new THREE.DirectionalLight( 0x555555 );
+ 		xl.position.set( 1, 0, 2 );
+ 		scene.add( xl );
+ 		var pl = new THREE.PointLight(0x111111);
+ 		pl.position.set(-20, 10, 20);
+ 		scene.add(pl);
+ 		var ambientLight = new THREE.AmbientLight(0x111111);	
+ 		scene.add(ambientLight);
  }
 
  function animate() 
