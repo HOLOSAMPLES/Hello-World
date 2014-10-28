@@ -1652,6 +1652,7 @@ var LeiaWebGLRenderer = function (parameters) {
                     }
                     break;
                 case 82: // 'r'
+				    console.log("switch rendering");
                     _that.bRendering = !_that.bRendering;
                     break;
             }
