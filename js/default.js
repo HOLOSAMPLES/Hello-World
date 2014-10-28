@@ -15,7 +15,6 @@ function Init(){
  		renderer = new LeiaWebGLRenderer({
          antialias:true, 
  		renderMode: _renderMode, 
- 		camFov: _camFov,    
 		devicePixelRatio: 1 
         } );
  		renderer.Leia_setSize( windowWidth, windowHeight );
@@ -41,7 +40,7 @@ function Init(){
  	requestAnimationFrame( animate );
   
     renderer.setClearColor(new THREE.Color().setRGB(1.0, 1.0, 1.0)); 
-	renderer.Leia_render(scene, camera,undefined,undefined,_holoScreenScale);
+	renderer.Leia_render(scene, camera,undefined,undefined,_holoScreenScale,_camFov);
  }
 
  
