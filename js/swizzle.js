@@ -1199,7 +1199,7 @@ var LeiaWebGLRenderer = function (parameters) {
         document.addEventListener('keydown', onDocumentKeyDown, false);
         function onDocumentKeyDown(event) {
             var keyCode = event.which;
-            //console.log(keyCode);
+            console.log("onDocumentKeyDown1");
             switch (keyCode) {
                 case 83: // 's'
                     //_that.bSuperSample = !_that.bSuperSample;
@@ -1634,7 +1634,7 @@ var LeiaWebGLRenderer = function (parameters) {
         document.addEventListener('keydown', onDocumentKeyDown, false);
         function onDocumentKeyDown(event) {
             var keyCode = event.which;
-            //console.log(keyCode);
+            console.log("onDocumentKeyDown2");
             switch (keyCode) {
                 case 27: // escape key
                     //case 32: // ' '
