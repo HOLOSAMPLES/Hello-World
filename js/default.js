@@ -4,7 +4,6 @@
  animate();
 
 function Init(){
-        //
         scene = new THREE.Scene();
   
        //setup camera
