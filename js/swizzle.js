@@ -767,7 +767,7 @@ var LeiaWebGLRenderer = function (parameters) {
             } else if (pointer.button == 2 && _this.axis !== null && _this.object.name == "eyeCenter") {
                 if (_this.object == undefined || _dragging == true) return;
                 event.preventDefault();
-                event.stopPropagation();
+               // event.stopPropagation();
                 _that.spanSphereMode = !_that.spanSphereMode;
 
             } else {
