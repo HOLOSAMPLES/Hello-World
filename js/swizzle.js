@@ -1772,7 +1772,7 @@ var LeiaWebGLRenderer = function (parameters) {
     }
 
     this.stateData = {};
-	this.SetUpRenderStates(scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov, messageFlag){
+	this.SetUpRenderStates = function (scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov, messageFlag){
 		
 		var _holoCamFov = 50;
 		var _holoScreenScale = 1;
