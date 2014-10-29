@@ -1770,7 +1770,9 @@ var LeiaWebGLRenderer = function (parameters) {
 			console.log("messageFlag undefined");
 		}else if(messageFlag == 0){
 			//IDE
-			console.log("messageFlag IDE");
+			//console.log("messageFlag IDE");
+			var message = JSON.stringify({type:'tuning', data:{camFov:holoCamFov}});
+			window.top.postMessage(message,"*");
 		}else if(messageFlag == 1){
 			//Emulator
 			console.log("messageFlag Emulator");
