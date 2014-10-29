@@ -1390,13 +1390,19 @@ var LeiaWebGLRenderer = function (parameters) {
         this.tarObj.scale.z = this.scale;
         this.tarObj.updateMatrix();
 
-        this.update = function () {
+        this.getData = function () {
             this.position.copy(this.tarObj.position);
             //save var _tarPosition in index here 
             this.scale = this.tarObj.scale.x;
             //save var _holoScreenSize in index here 
+            this.tarObj.rotation.setFromRotationMatrix(camera.matrix);        
+        }
+        this.setData = function () {
+            this.tarObj.position.copy(this.position);
+            //save var _tarPosition in index here 
+            this.tarObj.scale.x = this.scale;
+            //save var _holoScreenSize in index here 
             this.tarObj.rotation.setFromRotationMatrix(camera.matrix);
-            
         }
     }
 
@@ -1420,15 +1426,16 @@ var LeiaWebGLRenderer = function (parameters) {
         this.eyeCenter.visible = true;
         this.eyeCenter.updateMatrix();
 
-        this.update = function () {
+        this.getData = function () {
             this.position.copy(this.eyeCenter.position);
-            //save var _camPosition in index here
             this.fov = _that.view64fov;
-            //console.log("fov: ", this.fov);
-            //save var _camFov in index here
-
         }
-		
+        this.setData = function () {
+            this.eyeCenter.position.copy(this.position);
+            _that.view64fov  = this.fov;
+        }
+        
+
     }
 
     this.bGlobalViewInit = false;
@@ -1634,8 +1641,8 @@ var LeiaWebGLRenderer = function (parameters) {
 
             //_that._holoScreen.tarObj = this.tarControls.object;
             //_that._holoScreen.tarObj.rotation.setFromRotationMatrix(camera.matrix);
-            _that._holoScreen.update();
-            _that._holoCamCenter.update();
+            _that._holoScreen.getData();
+            _that._holoCamCenter.getData();
 
             if (_that.bGlobalView)
                 _that.render(scene, this.Gcamera, renderTarget, forceClear);
@@ -1766,6 +1773,7 @@ var LeiaWebGLRenderer = function (parameters) {
 
     this.bRendering = true;
     this.Leia_render = function (scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov, messageFlag) {
+	
 		//passing parameters
 		var _holoCamFov = 50;
 		var _holoScreenScale = 1;
@@ -1792,8 +1800,11 @@ var LeiaWebGLRenderer = function (parameters) {
 			console.log("messageFlag undefined");
 		}else if(messageFlag == 0){
 			//IDE
-			//console.log("messageFlag IDE");
-			var message = JSON.stringify({type:'tuning', data:{_camFov:this._holoCamCenter.fov,_holoScreenScale:this._holoScreen.scale}});
+			var message = JSON.stringify({type:'tuning', data:{_camFov:this._holoCamCenter.fov,
+			_camPosition:{this._holoCamCenter.position.x,this._holoCamCenter.position.y,this._holoCamCenter.position.z},
+			_holoScreenScale:this._holoScreen.scale,
+			_tarPosition:{this._holoScreen.position.x,this._holoScreen.position.y,this._holoScreen.position.z},}
+			});
 			window.top.postMessage(message,"*");
 		}else if(messageFlag == 1){
 			//Emulator
@@ -1801,10 +1812,8 @@ var LeiaWebGLRenderer = function (parameters) {
 		}else{
 			console.log("messageFlag Error!");
 		}
+		  
         if (this.bRendering) {
-            
-            //this._renderMode = 0;
-
             if (0 == this._renderMode) {
                 var spanMode = this.spanSphereMode;
                 var camPositionCenter = new THREE.Vector3(camera.position.x, camera.position.y, camera.position.z);
