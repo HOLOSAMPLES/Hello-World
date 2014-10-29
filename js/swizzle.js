@@ -1765,13 +1765,20 @@ var LeiaWebGLRenderer = function (parameters) {
 
     this.bRendering = true;
     this.Leia_render = function (scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov, messageFlag) {
-	
+		//passing parameters
+		var _holoCamFov = 50;
+		var _holoScreenScale = 1;
+		if (holoCamFov !== undefined)
+            _holoCamFov = holoCamFov;
+        if (holoScreenScale !== undefined)
+            _holoScreenScale = holoScreenScale;
+		
 		if(messageFlag == undefined){
 			console.log("messageFlag undefined");
 		}else if(messageFlag == 0){
 			//IDE
 			//console.log("messageFlag IDE");
-			var message = JSON.stringify({type:'tuning', data:{camFov:holoCamFov}});
+			var message = JSON.stringify({type:'tuning', data:{_camFov:_holoCamFov,_holoScreenScale:_holoScreenScale}});
 			window.top.postMessage(message,"*");
 		}else if(messageFlag == 1){
 			//Emulator
@@ -1783,17 +1790,11 @@ var LeiaWebGLRenderer = function (parameters) {
             if (camera.position.x == 0 && camera.position.y != 0 && camera.position.z == 0)
                 camera.position.z = camera.position.y / 100;
 
-            var _holoCamFov = 50;
-            if (holoCamFov !== undefined)
-                _holoCamFov = holoCamFov;
             if (!this.bHoloCamCenterInit) {
                 this._holoCamCenter = new CHoloCamCenter(camera, _holoCamFov);
                 this.bHoloCamCenterInit = true;
             }
 
-            var _holoScreenScale = 1;
-            if (holoScreenScale !== undefined)
-                _holoScreenScale = holoScreenScale;
             if ((!this.bHoloScreenInit) && camera.position.length() >= 0) {
                 this._holoScreen = new CHoloScreen(camera, _holoScreenScale);
                 this.bHoloScreenInit = true;
