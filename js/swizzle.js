@@ -1801,9 +1801,9 @@ var LeiaWebGLRenderer = function (parameters) {
 		}else if(messageFlag == 0){
 			//IDE
 			var message = JSON.stringify({type:'tuning', data:{_camFov:this._holoCamCenter.fov,
-			_camPosition:{this._holoCamCenter.position.x,this._holoCamCenter.position.y,this._holoCamCenter.position.z},
+			_camPosition:{x:this._holoCamCenter.position.x,y:this._holoCamCenter.position.y,z:this._holoCamCenter.position.z},
 			_holoScreenScale:this._holoScreen.scale,
-			_tarPosition:{this._holoScreen.position.x,this._holoScreen.position.y,this._holoScreen.position.z},}
+			_tarPosition:{x:this._holoScreen.position.x,y:this._holoScreen.position.y,z:this._holoScreen.position.z},}
 			});
 			window.top.postMessage(message,"*");
 		}else if(messageFlag == 1){
