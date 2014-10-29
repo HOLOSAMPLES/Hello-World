@@ -1786,13 +1786,15 @@ var LeiaWebGLRenderer = function (parameters) {
 			this._holoCamCenter = new CHoloCamCenter(camera, _holoCamFov);
 			this.bHoloCamCenterInit = true;
 			this.stateData._camFov = this._holoCamCenter.fov;
-			this.stateData._camPosition = this._holoCamCenter.position;
+			this.stateData._camPosition = new THREE.Vector3(0, 0, 0);
+			this.stateData._camPosition.copy(this._holoCamCenter.position);
 		}
 		if ((!this.bHoloScreenInit) && camera.position.length() >= 0) {
 			this._holoScreen = new CHoloScreen(camera, _holoScreenScale);
 			this.bHoloScreenInit = true;
 			this.stateData._holoScreenScale = this._holoScreen.scale;
-			this.stateData._tarPosition = this._holoScreen.position;
+			this.stateData._tarPosition = new THREE.Vector3(0, 0, 0);
+			this.stateData._tarPosition.copy(this._holoScreen.position);
 		}
 		if (!this.bShaderManInit) {
 			this._shaderManager = new CShaderManager();
@@ -1822,9 +1824,9 @@ var LeiaWebGLRenderer = function (parameters) {
 				});
 				window.top.postMessage(message,"*");
 				this.stateData._camFov = this._holoCamCenter.fov;
-				this.stateData._camPosition = this._holoCamCenter.position;
+				this.stateData._camPosition.copy(this._holoCamCenter.position);
 				this.stateData._holoScreenScale = this._holoScreen.scale;
-				this.stateData._tarPosition = this._holoScreen.position;
+				this.stateData._tarPosition.copy(this._holoScreen.position);
 			}
 		}else if(messageFlag == 1){   //Emulator
 			console.log("messageFlag Emulator");
