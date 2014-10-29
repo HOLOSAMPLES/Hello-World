@@ -1428,6 +1428,7 @@ var LeiaWebGLRenderer = function (parameters) {
             //save var _camFov in index here
 
         }
+		
     }
 
     this.bGlobalViewInit = false;
@@ -1772,13 +1773,27 @@ var LeiaWebGLRenderer = function (parameters) {
             _holoCamFov = holoCamFov;
         if (holoScreenScale !== undefined)
             _holoScreenScale = holoScreenScale;
+		if (camera.position.x == 0 && camera.position.y != 0 && camera.position.z == 0)
+                camera.position.z = camera.position.y / 100;
+		if (!this.bHoloCamCenterInit) {
+			this._holoCamCenter = new CHoloCamCenter(camera, _holoCamFov);
+			this.bHoloCamCenterInit = true;
+		}
+		if ((!this.bHoloScreenInit) && camera.position.length() >= 0) {
+			this._holoScreen = new CHoloScreen(camera, _holoScreenScale);
+			this.bHoloScreenInit = true;
+		}
+		if (!this.bShaderManInit) {
+			this._shaderManager = new CShaderManager();
+			this.bShaderManInit = true;
+		}
 		
 		if(messageFlag == undefined){
 			console.log("messageFlag undefined");
 		}else if(messageFlag == 0){
 			//IDE
 			//console.log("messageFlag IDE");
-			var message = JSON.stringify({type:'tuning', data:{_camFov:_holoCamFov,_holoScreenScale:_holoScreenScale}});
+			var message = JSON.stringify({type:'tuning', data:{_camFov:this._holoCamCenter.fov,_holoScreenScale:this._holoScreen.scale}});
 			window.top.postMessage(message,"*");
 		}else if(messageFlag == 1){
 			//Emulator
@@ -1787,22 +1802,7 @@ var LeiaWebGLRenderer = function (parameters) {
 			console.log("messageFlag Error!");
 		}
         if (this.bRendering) {
-            if (camera.position.x == 0 && camera.position.y != 0 && camera.position.z == 0)
-                camera.position.z = camera.position.y / 100;
-
-            if (!this.bHoloCamCenterInit) {
-                this._holoCamCenter = new CHoloCamCenter(camera, _holoCamFov);
-                this.bHoloCamCenterInit = true;
-            }
-
-            if ((!this.bHoloScreenInit) && camera.position.length() >= 0) {
-                this._holoScreen = new CHoloScreen(camera, _holoScreenScale);
-                this.bHoloScreenInit = true;
-            }
-            if (!this.bShaderManInit) {
-                this._shaderManager = new CShaderManager();
-                this.bShaderManInit = true;
-            }
+            
             //this._renderMode = 0;
 
             if (0 == this._renderMode) {
