@@ -1771,10 +1771,9 @@ var LeiaWebGLRenderer = function (parameters) {
         camera.lookAt(camera.targetPosition);
     }
 
-    this.bRendering = true;
-    this.Leia_render = function (scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov, messageFlag) {
-	
-		//passing parameters
+    this.stateData = {};
+	this.SetUpRenderStates(scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov, messageFlag){
+		
 		var _holoCamFov = 50;
 		var _holoScreenScale = 1;
 		if (holoCamFov !== undefined)
@@ -1786,33 +1785,58 @@ var LeiaWebGLRenderer = function (parameters) {
 		if (!this.bHoloCamCenterInit) {
 			this._holoCamCenter = new CHoloCamCenter(camera, _holoCamFov);
 			this.bHoloCamCenterInit = true;
+			stateData._camFov = this._holoCamCenter.fov;
+			stateData._camPosition = this._holoCamCenter.position;
 		}
 		if ((!this.bHoloScreenInit) && camera.position.length() >= 0) {
 			this._holoScreen = new CHoloScreen(camera, _holoScreenScale);
 			this.bHoloScreenInit = true;
+			stateData._holoScreenScale = this._holoScreen.scale;
+			stateData._tarPosition = this._holoScreen.position;
 		}
 		if (!this.bShaderManInit) {
 			this._shaderManager = new CShaderManager();
 			this.bShaderManInit = true;
 		}
 		
+		//passing parameters
 		if(messageFlag == undefined){
 			console.log("messageFlag undefined");
-		}else if(messageFlag == 0){
-			//IDE
-			var message = JSON.stringify({type:'tuning', data:{_camFov:this._holoCamCenter.fov,
-			_camPosition:{x:this._holoCamCenter.position.x,y:this._holoCamCenter.position.y,z:this._holoCamCenter.position.z},
-			_holoScreenScale:this._holoScreen.scale,
-			_tarPosition:{x:this._holoScreen.position.x,y:this._holoScreen.position.y,z:this._holoScreen.position.z},}
-			});
-			window.top.postMessage(message,"*");
-		}else if(messageFlag == 1){
-			//Emulator
+		}else if(messageFlag == 0){  //IDE
+			
+			var bStateChange = false;
+			if(stateData._camFov != this._holoCamCenter.fov || stateData._holoScreenScale != this._holoScreen.scale){
+				bStateChange = true;
+			}
+			if(stateData._camPosition.x != this._holoCamCenter.position.x || stateData._camPosition.y != this._holoCamCenter.position.y || stateData._camPosition.z != this._holoCamCenter.position.z){
+				bStateChange = true;
+			}
+			if(stateData._tarPosition.x != this._holoScreen.position.x || stateData._tarPosition.y != this._holoScreen.position.y || stateData._tarPosition.z != this._holoScreen.position.z){
+				bStateChange = true;
+			}
+			if(bStateChange == true){
+				var message = JSON.stringify({type:'tuning', data:{_camFov:this._holoCamCenter.fov,
+				_camPosition:{x:this._holoCamCenter.position.x,y:this._holoCamCenter.position.y,z:this._holoCamCenter.position.z},
+				_holoScreenScale:this._holoScreen.scale,
+				_tarPosition:{x:this._holoScreen.position.x,y:this._holoScreen.position.y,z:this._holoScreen.position.z},}
+				});
+				window.top.postMessage(message,"*");
+				stateData._camFov = this._holoCamCenter.fov;
+				stateData._camPosition = this._holoCamCenter.position;
+				stateData._holoScreenScale = this._holoScreen.scale;
+				stateData._tarPosition = this._holoScreen.position;
+			}
+		}else if(messageFlag == 1){   //Emulator
 			console.log("messageFlag Emulator");
 		}else{
 			console.log("messageFlag Error!");
 		}
-		  
+	}
+	this.bRendering = true;
+    this.Leia_render = function (scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov, messageFlag) {
+		
+		SetUpRenderStates(scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov, messageFlag);
+		
         if (this.bRendering) {
             if (0 == this._renderMode) {
                 var spanMode = this.spanSphereMode;
