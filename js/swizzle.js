@@ -1764,7 +1764,19 @@ var LeiaWebGLRenderer = function (parameters) {
     }
 
     this.bRendering = true;
-    this.Leia_render = function (scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov) {
+    this.Leia_render = function (scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov, messageFlag) {
+	
+		if(messageFlag == undefined){
+			console.log("messageFlag undefined");
+		}else if(messageFlag == 0){
+			//IDE
+			console.log("messageFlag IDE");
+		}else if(messageFlag == 1){
+			//Emulator
+			console.log("messageFlag Emulator");
+		}else{
+			console.log("messageFlag Error!");
+		}
         if (this.bRendering) {
             if (camera.position.x == 0 && camera.position.y != 0 && camera.position.z == 0)
                 camera.position.z = camera.position.y / 100;
