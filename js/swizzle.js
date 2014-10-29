@@ -1835,7 +1835,7 @@ var LeiaWebGLRenderer = function (parameters) {
 	this.bRendering = true;
     this.Leia_render = function (scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov, messageFlag) {
 		
-		SetUpRenderStates(scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov, messageFlag);
+		this.SetUpRenderStates(scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov, messageFlag);
 		
         if (this.bRendering) {
             if (0 == this._renderMode) {
