@@ -1882,7 +1882,7 @@ var LeiaWebGLRenderer = function (parameters) {
 						  console.log("requested display info:" + this.responseText);
 							
 						  if(params.data != undefined){
-							self._holoCamCenter.fov = params.data._camFov.toFixed(2);
+						/*	self._holoCamCenter.fov = params.data._camFov.toFixed(2);
 							self._holoCamCenter.position.x = params.data._camPosition.x.toFixed(2);
 							self._holoCamCenter.position.y = params.data._camPosition.y.toFixed(2);
 							self._holoCamCenter.position.z = params.data._camPosition.z.toFixed(2);
@@ -1893,7 +1893,18 @@ var LeiaWebGLRenderer = function (parameters) {
 							self._holoScreen.position.y = params.data._tarPosition.y.toFixed(2);
 							self._holoScreen.position.z = params.data._tarPosition.z.toFixed(2);
 							self._holoScreen.setData();
+							*/
+							self._holoCamCenter.fov = 10;
+							self._holoCamCenter.position.x = 0;
+							self._holoCamCenter.position.y = 100;
+							self._holoCamCenter.position.z = 2;
+							self._holoCamCenter.setData();
 							
+							self._holoScreen.scale = 0.2;
+							self._holoScreen.position.x = 0;
+							self._holoScreen.position.y = 0;
+							self._holoScreen.position.z = 0;
+							self._holoScreen.setData();
 							console.log(self._holoCamCenter.fov + " " +  self._holoCamCenter.position.x + " " +  self._holoCamCenter.position.y+ " " +  self._holoCamCenter.position.z);
 							console.log(self._holoScreen.scale + " " +  self._holoScreen.position.x + " " +  self._holoScreen.position.y + " " +  self._holoScreen.position.z);
 						  }
