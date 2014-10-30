@@ -1772,6 +1772,7 @@ var LeiaWebGLRenderer = function (parameters) {
     }
 
     this.stateData = {};
+	this.messageFlag = 0;
 	this.SetUpRenderStates = function (scene, camera, renderTarget, forceClear, holoScreenScale, holoCamFov, messageFlag){
 		
 		var _holoCamFov = 50;
@@ -1852,8 +1853,12 @@ var LeiaWebGLRenderer = function (parameters) {
 				  })();
 			}
 		}else if(messageFlag == 1){   //Emulator
-			console.log("messageFlag Emulator");
 			
+			this.messageFlag++;
+			
+			if(this.messageFlag > 100){
+				console.log("messageFlag Emulator");
+				this.messageFlag = 0;
 			   (function(){
 					var xmlhttp = new XMLHttpRequest();
 					xmlhttp.onreadystatechange=function() {
@@ -1874,6 +1879,7 @@ var LeiaWebGLRenderer = function (parameters) {
 					//xmlhttp.setRequestHeader('User-Agent', 'holoide');
 					xmlhttp.send();
 				  })();
+			}
 		}else{
 			console.log("messageFlag Error!");
 		}
