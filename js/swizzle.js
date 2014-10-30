@@ -1874,7 +1874,7 @@ var LeiaWebGLRenderer = function (parameters) {
 						  var params =  JSON.parse(this.responseText);
 						  console.log("requested display info:" + this.responseText);
 							
-						  if(params.data._camFov != undefined){
+						  if(params.data != undefined){
 							self._holoCamCenter.fov = params.data._camFov.toFixed(2);
 							self._holoCamCenter.position.x = params.data._camPosition.x.toFixed(2);
 							self._holoCamCenter.position.y = params.data._camPosition.y.toFixed(2);
