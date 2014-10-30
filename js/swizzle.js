@@ -1900,9 +1900,9 @@ var LeiaWebGLRenderer = function (parameters) {
 							self._holoCamCenter.setData();
 							
 							self._holoScreen.scale = params.data._holoScreenScale.toFixed(2);
-						/*	self._holoScreen.position.x = params.data._tarPosition.x.toFixed(2);
+							self._holoScreen.position.x = params.data._tarPosition.x.toFixed(2);
 							self._holoScreen.position.y = params.data._tarPosition.y.toFixed(2);
-							self._holoScreen.position.z = params.data._tarPosition.z.toFixed(2);*/
+							self._holoScreen.position.z = params.data._tarPosition.z.toFixed(2);
 							self._holoScreen.setData();
 							
 							console.log(self._holoCamCenter.fov + " " +  self._holoCamCenter.position.x + " " +  self._holoCamCenter.position.y+ " " +  self._holoCamCenter.position.z);
