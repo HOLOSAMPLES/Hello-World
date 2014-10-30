@@ -1863,6 +1863,8 @@ var LeiaWebGLRenderer = function (parameters) {
 						  console.log("requested display info:" + this.responseText);
 
 						  return;
+						}else{
+							console.log("something wrong");
 						}
 						// something went wrong
 					  }
