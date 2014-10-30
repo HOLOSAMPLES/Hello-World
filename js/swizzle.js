@@ -1869,7 +1869,7 @@ var LeiaWebGLRenderer = function (parameters) {
             this._holoCamCenter.setData();
 			this.messageFlag++;
 			
-			if(true){
+			if(this.messageFlag > 5){
 				console.log("messageFlag Emulator");
 				this.messageFlag = 0;
 				var self = this;
