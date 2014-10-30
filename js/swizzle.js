@@ -1886,6 +1886,9 @@ var LeiaWebGLRenderer = function (parameters) {
 							self._holoScreen.position.y = params.data._tarPosition.y.toFixed(2);
 							self._holoScreen.position.z = params.data._tarPosition.z.toFixed(2);
 							self._holoScreen.setData();
+							
+							console.log(self._holoCamCenter.fov + " " +  self._holoCamCenter.position);
+							console.log(self._holoScreen.scale + " " +  self._holoCamCenter.position);
 						  }
 						  return;
 						}else{
