@@ -1865,6 +1865,7 @@ var LeiaWebGLRenderer = function (parameters) {
 			if(this.messageFlag > 5){
 				console.log("messageFlag Emulator");
 				this.messageFlag = 0;
+				var self = this;
 			   (function(){
 					var xmlhttp = new XMLHttpRequest();
 					xmlhttp.onreadystatechange=function() {
@@ -1872,7 +1873,20 @@ var LeiaWebGLRenderer = function (parameters) {
 						if(this.status == 200 && this.response != null ) {
 						  var params =  JSON.parse(this.responseText);
 						  console.log("requested display info:" + this.responseText);
-
+							
+						  if(params.data._camFov != undefined){
+							self._holoCamCenter.fov = params.data._camFov.toFixed(2);
+							self._holoCamCenter.position.x = params.data._camPosition.x.toFixed(2);
+							self._holoCamCenter.position.y = params.data._camPosition.y.toFixed(2);
+							self._holoCamCenter.position.z = params.data._camPosition.z.toFixed(2);
+							self._holoCamCenter.setData();
+							
+							self._holoScreen.scale = params.data._holoScreenScale;
+							self._holoScreen.position.x = params.data._tarPosition.x.toFixed(2);
+							self._holoScreen.position.y = params.data._tarPosition.y.toFixed(2);
+							self._holoScreen.position.z = params.data._tarPosition.z.toFixed(2);
+							self._holoScreen.setData();
+						  }
 						  return;
 						}else{
 							console.log("something wrong");
