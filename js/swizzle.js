@@ -1831,14 +1831,18 @@ var LeiaWebGLRenderer = function (parameters) {
 				this.stateData._holoScreenScale = this._holoScreen.scale;
 				this.stateData._tarPosition.copy(this._holoScreen.position);
 			}
-			this.messageFlag++;
+			//this.messageFlag++;
 			
-			if(this.messageFlag > 100){
-				this.messageFlag = 0;
+			if(bStateChange == true){
+				//this.messageFlag = 0;
 				console.log("post data to emulator");
 				 (function(){
 					var dataObject = {action: "UpdateDisplayParams"};
-					dataObject.params = JSON.stringify({FOV:"555", "desc":"XMLHttpRequest"});
+					dataObject.params = JSON.stringify({type:'tuning', data:{_camFov:this._holoCamCenter.fov,
+				_camPosition:{x:this._holoCamCenter.position.x,y:this._holoCamCenter.position.y,z:this._holoCamCenter.position.z},
+				_holoScreenScale:this._holoScreen.scale,
+				_tarPosition:{x:this._holoScreen.position.x,y:this._holoScreen.position.y,z:this._holoScreen.position.z},}
+				});
 					var xmlhttp = new XMLHttpRequest();
 					xmlhttp.onreadystatechange=function() {
 					  if(this.readyState == this.DONE) {
@@ -1858,7 +1862,7 @@ var LeiaWebGLRenderer = function (parameters) {
 			
 			this.messageFlag++;
 			
-			if(this.messageFlag > 100){
+			if(this.messageFlag > 5){
 				console.log("messageFlag Emulator");
 				this.messageFlag = 0;
 			   (function(){
