@@ -21,7 +21,7 @@ function Init(){
  		document.body.appendChild( renderer.domElement );
   
        //add object to Scene
-      var graph = new THREE.Mesh(new THREE.SphereGeometry(5, 30, 10), new THREE.MeshLambertMaterial({color:0xffffff}));
+      var graph = new THREE.Mesh(new THREE.SphereGeometry(8, 30, 10), new THREE.MeshLambertMaterial({color:0xffffff}));
 	  scene.add(graph);
   
         //add Light
