@@ -1833,21 +1833,22 @@ var LeiaWebGLRenderer = function (parameters) {
 			
 			if(true){
 				console.log("post data to emulator");
-				(function(){
+				 (function(){
 					var dataObject = {action: "UpdateDisplayParams"};
-					dataObject.params = JSON.stringify({FOV:"30", "desc":"final test"});
-					$.ajax( {
-					  url : "http://127.0.0.1:8887/updateDisplayParams",
-					  contentType : "application/json",
-					  data : dataObject,
-					  type:"POST",
-					  success : function(result,status,xhr){
-						console.log("POST STATUS: " + status + ", RESPONSE MSG: " + JSON.stringify(result));
-					  },
-					  error : function(result,status,xhr){
-						console.log("POST STATUS: " + status + ", RESPONSE MSG: " + JSON.stringify(result));
+					dataObject.params = JSON.stringify({FOV:"555", "desc":"XMLHttpRequest"});
+					var xmlhttp = new XMLHttpRequest();
+					xmlhttp.onreadystatechange=function() {
+					  if(this.readyState == this.DONE) {
+						if(this.status == 200 && this.response != null ) {
+						  var params =  JSON.parse(this.responseText);
+						  console.log("Update Display Params:" + this.responseText);
+						  return;
+						}
 					  }
-					});
+					};
+					xmlhttp.open("POST","http://127.0.0.1:8887/updateDisplayParams",true);
+					xmlhttp.setRequestHeader('Content-Type', 'text/plain');
+					xmlhttp.send(JSON.stringify(dataObject));
 				  })();
 			}
 		}else if(messageFlag == 1){   //Emulator
