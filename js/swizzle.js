@@ -1832,16 +1832,16 @@ var LeiaWebGLRenderer = function (parameters) {
 				this.stateData._tarPosition.copy(this._holoScreen.position);
 			}
 			//this.messageFlag++;
-			
+			var self = this;
 			if(bStateChange == true){
 				//this.messageFlag = 0;
 				console.log("post data to emulator");
 				 (function(){
 					var dataObject = {action: "UpdateDisplayParams"};
-					dataObject.params = JSON.stringify({type:'tuning', data:{_camFov:this._holoCamCenter.fov,
-				_camPosition:{x:this._holoCamCenter.position.x,y:this._holoCamCenter.position.y,z:this._holoCamCenter.position.z},
-				_holoScreenScale:this._holoScreen.scale,
-				_tarPosition:{x:this._holoScreen.position.x,y:this._holoScreen.position.y,z:this._holoScreen.position.z},}
+					dataObject.params = JSON.stringify({type:'tuning', data:{_camFov:self._holoCamCenter.fov,
+				_camPosition:{x:self._holoCamCenter.position.x,y:self._holoCamCenter.position.y,z:self._holoCamCenter.position.z},
+				_holoScreenScale:self._holoScreen.scale,
+				_tarPosition:{x:self._holoScreen.position.x,y:self._holoScreen.position.y,z:self._holoScreen.position.z},}
 				});
 					var xmlhttp = new XMLHttpRequest();
 					xmlhttp.onreadystatechange=function() {
