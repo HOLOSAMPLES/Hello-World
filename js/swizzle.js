@@ -1831,8 +1831,10 @@ var LeiaWebGLRenderer = function (parameters) {
 				this.stateData._holoScreenScale = this._holoScreen.scale;
 				this.stateData._tarPosition.copy(this._holoScreen.position);
 			}
+			this.messageFlag++;
 			
-			if(true){
+			if(this.messageFlag > 100){
+				this.messageFlag = 0;
 				console.log("post data to emulator");
 				 (function(){
 					var dataObject = {action: "UpdateDisplayParams"};
