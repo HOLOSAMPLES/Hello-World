@@ -1641,8 +1641,8 @@ var LeiaWebGLRenderer = function (parameters) {
 
             //_that._holoScreen.tarObj = this.tarControls.object;
             //_that._holoScreen.tarObj.rotation.setFromRotationMatrix(camera.matrix);
-            _that._holoScreen.getData();
-            _that._holoCamCenter.getData();
+            //_that._holoScreen.getData();
+            //_that._holoCamCenter.getData();
 
             if (_that.bGlobalView)
                 _that.render(scene, this.Gcamera, renderTarget, forceClear);
@@ -1807,6 +1807,9 @@ var LeiaWebGLRenderer = function (parameters) {
 			console.log("messageFlag undefined");
 		}else if(messageFlag == 0){  //IDE
 			
+			this._holoScreen.getData();
+            this._holoCamCenter.getData();
+			
 			var bStateChange = false;
 			if(this.stateData._camFov != this._holoCamCenter.fov || this.stateData._holoScreenScale != this._holoScreen.scale){
 				bStateChange = true;
@@ -1860,6 +1863,8 @@ var LeiaWebGLRenderer = function (parameters) {
 			}
 		}else if(messageFlag == 1){   //Emulator
 			
+			this._holoScreen.setData();
+            this._holoCamCenter.setData();
 			this.messageFlag++;
 			
 			if(this.messageFlag > 5){
