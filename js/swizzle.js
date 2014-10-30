@@ -1893,7 +1893,7 @@ var LeiaWebGLRenderer = function (parameters) {
 							self._holoScreen.position.y = params.data._tarPosition.y.toFixed(2);
 							self._holoScreen.position.z = params.data._tarPosition.z.toFixed(2);
 							self._holoScreen.setData();*/
-							self._holoCamCenter.fov = 50;
+							self._holoCamCenter.fov = params.data._camFov.toFixed(2);
 							self._holoCamCenter.setData();
 							self._holoScreen.setData();
 							
