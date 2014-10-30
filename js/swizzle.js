@@ -1816,6 +1816,8 @@ var LeiaWebGLRenderer = function (parameters) {
 			if(this.stateData._tarPosition.x != this._holoScreen.position.x || this.stateData._tarPosition.y != this._holoScreen.position.y || this.stateData._tarPosition.z != this._holoScreen.position.z){
 				bStateChange = true;
 			}
+			
+			//post to top window, modify code in IDE
 			if(bStateChange == true){
 				var message = JSON.stringify({type:'tuning', data:{_camFov:this._holoCamCenter.fov,
 				_camPosition:{x:this._holoCamCenter.position.x,y:this._holoCamCenter.position.y,z:this._holoCamCenter.position.z},
@@ -1828,8 +1830,47 @@ var LeiaWebGLRenderer = function (parameters) {
 				this.stateData._holoScreenScale = this._holoScreen.scale;
 				this.stateData._tarPosition.copy(this._holoScreen.position);
 			}
+			
+			if(true){
+				console.log("post data to emulator");
+				(function(){
+					var dataObject = {action: "UpdateDisplayParams"};
+					dataObject.params = JSON.stringify({FOV:"30", "desc":"final test"});
+					$.ajax( {
+					  url : "http://127.0.0.1:8887/updateDisplayParams",
+					  contentType : "application/json",
+					  data : dataObject,
+					  type:"POST",
+					  success : function(result,status,xhr){
+						console.log("POST STATUS: " + status + ", RESPONSE MSG: " + JSON.stringify(result));
+					  },
+					  error : function(result,status,xhr){
+						console.log("POST STATUS: " + status + ", RESPONSE MSG: " + JSON.stringify(result));
+					  }
+					});
+				  })();
+			}
 		}else if(messageFlag == 1){   //Emulator
 			console.log("messageFlag Emulator");
+			
+			   (function(){
+					var xmlhttp = new XMLHttpRequest();
+					xmlhttp.onreadystatechange=function() {
+					  if(this.readyState == this.DONE) {
+						if(this.status == 200 && this.response != null ) {
+						  var params =  JSON.parse(this.responseText);
+						  console.log("requested display info:" + this.responseText);
+
+						  return;
+						}
+						// something went wrong
+					  }
+					};
+					xmlhttp.open("GET","http://127.0.0.1:8887/queryDisplayParams",true);
+					//xmlhttp.setRequestHeader('Cache-Control', 'no-cache');
+					//xmlhttp.setRequestHeader('User-Agent', 'holoide');
+					xmlhttp.send();
+				  })();
 		}else{
 			console.log("messageFlag Error!");
 		}
