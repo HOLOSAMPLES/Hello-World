@@ -1401,6 +1401,8 @@ var LeiaWebGLRenderer = function (parameters) {
             this.tarObj.position.copy(this.position);
             //save var _tarPosition in index here 
             this.tarObj.scale.x = this.scale;
+			this.tarObj.scale.y = this.scale;
+			this.tarObj.scale.z = this.scale;
             //save var _holoScreenSize in index here 
             this.tarObj.rotation.setFromRotationMatrix(camera.matrix);
         }
