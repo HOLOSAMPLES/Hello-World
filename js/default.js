@@ -10,6 +10,7 @@ function Init(){
  		camera = new LeiaCamera();
         camera.position.copy(_camPosition);
         camera.lookAt(_tarPosition);
+        scene.add(camera);
   
        //setup rendering parameter
  		renderer = new LeiaWebGLRenderer({
